@@ -12,7 +12,7 @@ public class DAO<T> {
 		this.classe = classe;
 	}
 	
-	public void adiciona(T t) {
+	public void add(T t) {
 		EntityManager em = new JPAUtil().getEntityManager();
 		em.getTransaction().begin();
 		em.persist(t);
@@ -20,7 +20,7 @@ public class DAO<T> {
 		em.close();
 	}
 	
-	public void altera(T t) {
+	public void update(T t) {
 		EntityManager em = new JPAUtil().getEntityManager();
 		em.getTransaction().begin();
 		em.merge(t);
@@ -36,12 +36,12 @@ public class DAO<T> {
 		em.close();
 	}
 	
-	public T buscaPorId(Long id) {
+	public T findById(Long id) {
 		EntityManager em = new JPAUtil().getEntityManager();
 		return em.find(classe, id);
 	}
 	
-	public List<T> listaTodos(){
+	public List<T> listAll(){
 		EntityManager em = new JPAUtil().getEntityManager();
 		CriteriaQuery<T> query =
 				em.getCriteriaBuilder().createQuery(classe);

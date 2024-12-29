@@ -6,7 +6,7 @@ import jakarta.persistence.Persistence;
 
 public class JPAUtil {
 	
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("museums");
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("museumscheduling-pu");
 
 	public EntityManager getEntityManager() {
 		EntityManager conexao = emf.createEntityManager();

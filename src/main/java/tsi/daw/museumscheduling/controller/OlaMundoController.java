@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class OlaMundoController {
 	
-	@RequestMapping("olaSpring")
-	public String ola() {
-		return "ola";
+	@RequestMapping("home_page")
+	public String homePage() {
+		return "home_page";
 	}
 }
