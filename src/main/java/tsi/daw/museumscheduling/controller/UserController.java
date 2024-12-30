@@ -16,7 +16,6 @@ import tsi.daw.museumscheduling.model.Museum;
 
 @Controller
 public class UserController {
-
 	
 	@RequestMapping("employee_registration")
 	public String showHomePage(Model model) {

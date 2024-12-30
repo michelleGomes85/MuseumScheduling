@@ -15,8 +15,9 @@
 	<mvc:annotation-driven conversion-service="conversionService" />
 	<mvc:default-servlet-handler />
 
-	<!--<mvc:interceptors> <bean class="br.tsi.daw.tarefas.interceptor.AutorizadorInterceptor"/> 
-		</mvc:interceptors> -->
+	<mvc:interceptors> 
+		<bean class="tsi.daw.museumscheduling.interceptor.AutorizadorInterceptor"/> 
+	</mvc:interceptors>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

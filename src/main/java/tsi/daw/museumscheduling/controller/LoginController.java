@@ -11,29 +11,33 @@ import tsi.daw.museumscheduling.model.AppUser;
 @Controller
 public class LoginController {
 
-    @RequestMapping("/loginForm")
-    public String loginForm() {
-        return "login"; 
-    }
-    
-    @RequestMapping("/login")
-    public String login(AppUser user, HttpSession session) {
-    	
-        AppUserDAO userDAO = new AppUserDAO();
-        AppUser authenticatedUser = userDAO.validateLogin(user);
+	@RequestMapping("/loginForm")
+	public String loginForm(HttpSession session) {
+		
+		if (session.getAttribute("user") != null)
+			return "redirect:/home_page"; 
+		
+		return "login";
+	}
 
-        if (authenticatedUser != null) {
-            session.setAttribute("user", authenticatedUser);
-            return "redirect:/home_page";
-        }
+	@RequestMapping("/login")
+	public String login(AppUser user, HttpSession session) {
+		
+		AppUserDAO userDAO = new AppUserDAO();
+		AppUser authenticatedUser = userDAO.validateLogin(user);
 
-        return "redirect:/loginForm";
-    }
+		if (authenticatedUser != null) {
+			session.setAttribute("user", authenticatedUser);
+			session.setAttribute("userProfile", authenticatedUser.getUserProfile());
+			return "redirect:/home_page"; 
+		}
 
+		return "login"; 
+	}
 
-    @RequestMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "redirect:/home_page"; 
-    }
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return "redirect:/home_page";
+	}
 }
