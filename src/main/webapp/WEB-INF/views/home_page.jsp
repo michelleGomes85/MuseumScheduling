@@ -1,57 +1,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agendamento de Visitas</title>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-	rel="stylesheet" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet" />
-<link rel="stylesheet" href="resources/css/styles_homepage.css" />
-<link rel="icon" href="resources/images/MS.png" type="image/x-icon">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Agendamento de Visitas</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link rel="stylesheet" href="resources/css/styles_homepage.css" />
+	<link rel="icon" href="resources/images/MS.png" type="image/x-icon">
 </head>
 <body>
 
 	<div class="content">
-		<!-- Navbar -->
-		<nav class="navbar">
-			<div class="nav-wrapper container">
-				<ul id="nav-mobile" class="center">
-				
-					<!-- Opções visíveis para todos, logado ou não -->
-					<li><a href="<c:url value='/scheduling_page'/>"><i class="material-icons left">event</i>Agendar Visitas</a></li>
-					<li><a href="<c:url value='/cancel_page'/>"><i class="material-icons left">cancel</i>Cancelar Visitas</a></li>
-
-					<!-- As opções abaixo serão visíveis apenas para usuários logados -->
-					<c:if test="${not empty user}">
-						<li><a href="#relatorios"><i class="material-icons left">assessment</i>Relatórios</a></li>
-					</c:if>
-					
-					<c:if test="${not empty user and user.userProfile == 'ADMIN'}">
-						<li><a href="#cadastrar"><i class="material-icons left">person_add</i>Cadastrar	Funcionários</a></li>
-					</c:if>
-					
-				</ul>
-
-				<!-- Opções de login/logout -->
-				<ul class="right user-info">
-					<c:if test="${empty user}">
-						<li><a href="<c:url value='/loginForm'/>" class="btn out">Login</a></li>
-					</c:if>
-
-					<c:if test="${not empty user}">
-						<li><span>${user.name}</span></li>
-						<!-- Exibe nome do usuário logado -->
-						<li><a href="<c:url value='/logout'/>" class="btn out">Sair</a></li>
-					</c:if>
-				</ul>
-			</div>
-		</nav>
+		
+		<%@ include file="control/navbar.jsp" %>
 
 		<!-- Main Content -->
 		<div class="main-content">
@@ -65,8 +29,7 @@
 					Barbacena com facilidade. Agende horários, conheça os museus e
 					desfrute de uma experiência única de aprendizado e cultura!</p>
 				<div class="buttons-calendar">
-					<a href="<c:url value='/scheduling_page'/>" class="btn">Agendar
-						Agora</a>
+					<a href="<c:url value='/scheduling_page'/>" class="btn">Agendar	Agora</a>
 				</div>
 			</div>
 		</div>
@@ -128,13 +91,6 @@
 		</div>
 	</div>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			const elems = document.querySelectorAll(".modal");
-			M.Modal.init(elems);
-		});
-	</script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

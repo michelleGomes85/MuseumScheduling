@@ -15,6 +15,7 @@ public class AppUserDAO {
 	}
 
 	public AppUser validateLogin(AppUser user) {
+		
 	    if (user == null)
 	        throw new IllegalArgumentException("Usuário não deve ser nulo");
 

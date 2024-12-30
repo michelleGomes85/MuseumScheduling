@@ -12,3 +12,12 @@ function togglePasswordVisibility() {
 		toggleIcon.classList.add('fa-eye');
 	}
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+   M.updateTextFields();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
+});
