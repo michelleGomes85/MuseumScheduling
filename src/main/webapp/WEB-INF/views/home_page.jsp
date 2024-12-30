@@ -1,15 +1,19 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agendamento de Visitas</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <link rel="stylesheet" href="resources/css/styles_homepage.css" />
-    <link rel="icon" href="resources/images/MS.png" type="image/x-icon"> 
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agendamento de Visitas</title>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link rel="stylesheet" href="resources/css/styles_homepage.css" />
+<link rel="icon" href="resources/images/MS.png" type="image/x-icon">
 </head>
 <body>
 
@@ -19,18 +23,32 @@
 			<div class="nav-wrapper container">
 				<ul id="nav-mobile" class="center">
 				
-					<li><a href="<c:url value='/scheduling_page'/>"><i class="material-icons left">event</i>Agendar
-							Visitas</a></li>
-					<li><a href="#cancelar"><i class="material-icons left">cancel</i>Cancelar
-							Visitas</a></li>
-					<li><a class="modal-trigger" href="#relatorios"><i
-							class="material-icons left">assessment</i>Relatórios</a></li>
-					<li><a href="#cadastrar"><i class="material-icons left">person_add</i>Cadastrar
-							Funcionários</a></li>
+					<!-- Opções visíveis para todos, logado ou não -->
+					<li><a href="<c:url value='/scheduling_page'/>"><i class="material-icons left">event</i>Agendar Visitas</a></li>
+					<li><a href="<c:url value='/cancel_page'/>"><i class="material-icons left">cancel</i>Cancelar Visitas</a></li>
+
+					<!-- As opções abaixo serão visíveis apenas para usuários logados -->
+					<c:if test="${not empty user}">
+						<li><a href="#relatorios"><i class="material-icons left">assessment</i>Relatórios</a></li>
+					</c:if>
+					
+					<c:if test="${not empty user and user.userProfile == 'ADMIN'}">
+						<li><a href="#cadastrar"><i class="material-icons left">person_add</i>Cadastrar	Funcionários</a></li>
+					</c:if>
+					
 				</ul>
+
+				<!-- Opções de login/logout -->
 				<ul class="right user-info">
-					<li><span>Usuário Logado</span></li>
-					<li><a href="#logout" class="btn out">Sair</a></li>
+					<c:if test="${empty user}">
+						<li><a href="<c:url value='/loginForm'/>" class="btn out">Login</a></li>
+					</c:if>
+
+					<c:if test="${not empty user}">
+						<li><span>${user.name}</span></li>
+						<!-- Exibe nome do usuário logado -->
+						<li><a href="<c:url value='/logout'/>" class="btn out">Sair</a></li>
+					</c:if>
 				</ul>
 			</div>
 		</nav>
@@ -47,7 +65,8 @@
 					Barbacena com facilidade. Agende horários, conheça os museus e
 					desfrute de uma experiência única de aprendizado e cultura!</p>
 				<div class="buttons-calendar">
-					<a href="<c:url value='/scheduling_page'/>" class="btn">Agendar Agora</a>
+					<a href="<c:url value='/scheduling_page'/>" class="btn">Agendar
+						Agora</a>
 				</div>
 			</div>
 		</div>
@@ -55,16 +74,16 @@
 		<!-- Info Section (Imagens dos Museus) -->
 		<div class="info-section">
 			<div class="info-card">
-				<img src="resources/images/museu_municipal_barbacena.jpg" alt="Museu Municipal"
-					class="museum-img" />
+				<img src="resources/images/museu_municipal_barbacena.jpg"
+					alt="Museu Municipal" class="museum-img" />
 				<h5>Museu Municipal de Barbacena</h5>
 				<p>
 					Horário: 8h às 18h<br />Limite: 5 pessoas por hora
 				</p>
 			</div>
 			<div class="info-card">
-				<img src="resources/images/museu-da-loucura.jpg" alt="Museu da Loucura"
-					class="museum-img" />
+				<img src="resources/images/museu-da-loucura.jpg"
+					alt="Museu da Loucura" class="museum-img" />
 				<h5>Museu da Loucura</h5>
 				<p>
 					Horário: 9h às 17h<br />Limite: 10 pessoas por hora
