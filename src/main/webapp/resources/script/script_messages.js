@@ -20,7 +20,6 @@ function closeModal() {
 
 	if (modal_sucess)
 		modal_sucess.style.display = "none";
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {

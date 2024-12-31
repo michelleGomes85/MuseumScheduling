@@ -138,3 +138,36 @@ input::placeholder {
 .select {
 	margin-top: 3rem;
 }
+
+.datepicker-controls .select-month input {
+	color: #000;
+	width: 80px;
+}
+
+.datepicker-controls .select-year input {
+	color: #000;
+}
+
+.datepicker-date-display {
+	background-color: #243f4a;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done {
+	color: #243f4a;
+}
+
+.datepicker-table td.is-selected {
+	background-color: #243f4a; 
+}
+
+.datepicker-table td.is-today {
+	color: #ff9800 !important; 
+}
+
+.hide-field {
+	display: none;
+}

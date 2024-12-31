@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 import tsi.daw.museumscheduling.dao.DAO;
 import tsi.daw.museumscheduling.model.AppUser;
-import tsi.daw.museumscheduling.model.Museum;
 
 @Controller
 public class UserController {
@@ -20,22 +19,15 @@ public class UserController {
 	@RequestMapping("employee_registration")
 	public String showHomePage(Model model) {
 
-		listMuseums(model);
+		MuseumControl.listMuseums(model);
 		
 		return "employee_registration";
 	}
 	
-	private void listMuseums(Model model) {
-		DAO<Museum> dao = new DAO<>(Museum.class);
-		List<Museum> museums = dao.listAll();
-
-		model.addAttribute("museums", museums);
-	}
-
 	@RequestMapping("registerAppUser")
 	public String registerAppUser(@Valid AppUser user, BindingResult result, Model model) {
 		
-		listMuseums(model);
+		MuseumControl.listMuseums(model);
 		
 		if (result.hasErrors()) {
 			
