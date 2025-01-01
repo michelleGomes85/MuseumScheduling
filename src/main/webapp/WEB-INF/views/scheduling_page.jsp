@@ -28,7 +28,7 @@
 
 				<div class="input-field">
 					<i class="material-icons prefix">email</i> <input
-						id="responsibleEmail" type="email" name="email" required>
+						id="responsibleEmail" type="email" name="responsibleEmail" required>
 					<label for="responsibleEmail">E-mail</label>
 				</div>
 
@@ -45,33 +45,32 @@
 
 				<!-- Escolher data -->
 				<div class="input-field">
-					<i class="material-icons prefix">event</i> <input type="text"
-						id="datePicker" class="datepicker" placeholder="Escolha uma data">
+					<i class="material-icons prefix">event</i> 
+					<input type="text" id="datePicker" class="datepicker" placeholder="Escolha uma data" name="hourlyReservation.date">
 				</div>
 
 				<div class="hide-field section">
-
 					<!-- Escolher horário -->
 					<div class="input-field select">
-						<i class="material-icons prefix">schedule</i> <select
-							id="timePicker" name="time" required>
-						</select> <label for="timePicker">Horário</label>
+						<i class="material-icons prefix">schedule</i> 
+						<select	id="timePicker" name="hourlyReservation.time" required></select> 
+						<label for="timePicker">Horário</label>
 					</div>
 
 					<!-- Escolher quantidade de pessoas -->
 					<div class="input-field">
 						<i class="material-icons prefix">group</i> <input type="number"
-							id="peopleCount" name="peopleCount" min="1"
+							id="peopleCount" name="hourlyReservation.reservedPeople" min="1"
 							placeholder="Selecionar Horário">
 					</div>
-				</div>
-				<!-- hide-field -->
+				</div><!-- hide-field -->
 
 				<!-- Informações de pessoas -->
 				<div id="peopleInfoContainer" class="hide-field"></div>
 
 				<button id="continueButton" type="button" class="btn">Continuar
 					Agendamento</button>
+					
 				<button id="submitButton" type="submit" class="btn">Cadastrar</button>
 			</form>
 		</div>
@@ -104,6 +103,7 @@
 						qualquer momento revogar meu consentimento, conforme as condições
 						previstas.</li>
 				</ul>
+				
 				<p>Estou ciente de que, ao aceitar este termo, estou
 					vinculando-me legalmente às condições descritas acima, com a total
 					compreensão das implicações legais que isso pode ter.</p>
@@ -113,19 +113,40 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Exibindo mensagens de erro -->
+	<c:if test="${not empty messageReturn}">
+		<div id="modalMessage-error" class="modalMessage">
+			<div class="modal-content">
+				<h2>Erro</h2>
+				<ul class="ul-model">
+					<c:forEach var="error" items="${messageReturn}">
+						<li>${error}</li>
+					</c:forEach>
+				</ul>
+	            <button onclick="closeModal()" class="btn-submit">Fechar</button>				
+			</div>
+		</div>
+	</c:if>
 
+	<!-- Exibindo mensagem de sucesso -->
+	<c:if test="${messageReturn == 'Cadastro realizado com sucesso!'}">
+		<div id="modalMessage-sucess" class="modalMessage">
+			<div class="modal-content">
+				<h2>Messagem Informativa</h2>
+	            <p><c:out value="${messageReturn}" /></p>
+	            <button onclick="closeModal()" class="btn-submit">Fechar</button>
+			</div>
+		</div>
+	</c:if>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="resources/script/script.js"></script>
 	<script src="resources/script/script_messages.js"></script>
 	<script src="resources/script/script_jquery.js"></script>
-
 
 </body>
 </html>

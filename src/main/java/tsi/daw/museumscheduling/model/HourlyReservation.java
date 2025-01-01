@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -30,11 +28,9 @@ public class HourlyReservation {
 
 	@Min(value = 0, message = Messages.VALIDATION_RESERVED_PEOPLE)
 	private int reservedPeople;
-
-	@NotNull(message = Messages.VALIDATION_MUSEUM)
-	@ManyToOne
-	@JoinColumn(name = "museum_id", nullable = false)
-	private Museum museum;
+	
+	@Min(value = 0, message = Messages.VALIDATION_PEOPLE_PRESENT)
+	private int peoplePresent;
 
 	public Long getId() {
 		return id;
@@ -68,11 +64,11 @@ public class HourlyReservation {
 		this.reservedPeople = reservedPeople;
 	}
 
-	public Museum getMuseum() {
-		return museum;
+	public int getPeoplePresent() {
+		return peoplePresent;
 	}
 
-	public void setMuseum(Museum museum) {
-		this.museum = museum;
+	public void setPeoplePresent(int peoplePresent) {
+		this.peoplePresent = peoplePresent;
 	}
 }

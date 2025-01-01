@@ -2,6 +2,7 @@ package tsi.daw.museumscheduling.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,9 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import tsi.daw.museumscheduling.interfaces.Messages;
 
@@ -24,33 +25,28 @@ public class Scheduling {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "scheduling_id")
 	private Long id;
 	
-	@Min(value = 1, message = Messages.VALIDATION_LIMIT_PEOPLE)
-	private int numberPeople;
-	
-	@Min(value = 0, message = Messages.VALIDATION_PEOPLE_PRESENT)
-	
     @NotBlank(message = Messages.VALIDATION_EMAIL_REQUIRED)
     @Email(message = Messages.VALIDATION_EMAIL_INVALID)
 	private String responsibleEmail;
-    
-    @NotBlank(message = Messages.VALIDATION_CODE_CONFIRMATION)
-	private String confirmationCode;
 	
     @ManyToOne
     @JoinColumn(name = "museum_id", nullable = false)
     private Museum museum;
     
-    @ManyToOne
-    @JoinColumn(name = "hourly_reservation_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "hourly_reservation_id", referencedColumnName = "id")
     private HourlyReservation hourlyReservation;
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "scheduling_person",
         joinColumns = @JoinColumn(name = "scheduling_id"),
         inverseJoinColumns = @JoinColumn(name = "person_id")
     )
+    
     private List<Person> people;
+    
+	private String confirmationCode;
 	
 	public Long getId() {
 		return id;
@@ -58,14 +54,6 @@ public class Scheduling {
 	
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
-	public int getNumberPeople() {
-		return numberPeople;
-	}
-	
-	public void setNumberPeople(int numberPeople) {
-		this.numberPeople = numberPeople;
 	}
 	
 	public String getResponsibleEmail() {

@@ -38,9 +38,6 @@ public class Museum {
 	@OneToMany(mappedBy = "museum", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Scheduling> schedulings;
     
-	@OneToMany(mappedBy = "museum", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<HourlyReservation> hourlyReservations;
-	
     @OneToMany(mappedBy = "museum", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AppUser> users;
 	
@@ -97,14 +94,6 @@ public class Museum {
 
 	public void setUsers(List<AppUser> users) {
 		this.users = users;
-	}
-
-	public List<HourlyReservation> getHourlyReservations() {
-		return hourlyReservations;
-	}
-
-	public void setHourlyReservations(List<HourlyReservation> hourlyReservations) {
-		this.hourlyReservations = hourlyReservations;
 	}
 	
 } //class Museum

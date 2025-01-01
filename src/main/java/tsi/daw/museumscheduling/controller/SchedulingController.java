@@ -8,13 +8,19 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.validation.Valid;
 import tsi.daw.museumscheduling.dao.DAO;
 import tsi.daw.museumscheduling.dao.HourlyReservationDAO;
+import tsi.daw.museumscheduling.model.HourlyReservation;
 import tsi.daw.museumscheduling.model.Museum;
+import tsi.daw.museumscheduling.model.Person;
+import tsi.daw.museumscheduling.model.Scheduling;
 
 @Controller
 public class SchedulingController {
@@ -73,5 +79,39 @@ public class SchedulingController {
 
 	        return museum.getLimitPeopleByHour() - reservedPeople;
 	    }
+	}
+	
+	@RequestMapping("scheduleVisit")
+	public String scheduleVisit(@Valid Scheduling scheduling, BindingResult result, Model model) {
+		
+		MuseumControl.listMuseums(model);
+		
+		for (Person person : scheduling.getPeople())
+			System.out.println(person.getName());
+		
+		HourlyReservation hourlyReservation = scheduling.getHourlyReservation();
+		
+		System.out.println(hourlyReservation.getDate());
+		System.out.println(hourlyReservation.getTime());
+		System.out.println(hourlyReservation.getReservedPeople());
+		
+		System.out.println("Passei aqui");
+		
+		if (result.hasErrors()) {
+			
+			List<String> errorMessages = new ArrayList<>();
+			
+			for (ObjectError error : result.getAllErrors())
+				errorMessages.add(error.getDefaultMessage());
+			
+			model.addAttribute("messageReturn", errorMessages);
+			return "scheduling_page";
+		}
+
+		DAO<Scheduling> dao = new DAO<>(Scheduling.class);
+		dao.add(scheduling);
+
+		model.addAttribute("messageReturn", "Cadastro realizado com sucesso!");
+		return "scheduling_page";
 	}
 }

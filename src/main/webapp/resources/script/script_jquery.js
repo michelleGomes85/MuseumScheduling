@@ -128,12 +128,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	            <label for="ticket">Tipo de Ticket</label>
 	        </div>
 			
-	        <div class="input-field">
-	            <label>
-	                <input type="checkbox" id="acceptTerm${index}" />
-	                <span>Aceito os <a href="#!" class="modal-trigger" data-target="termModal">termos de responsabilidade</a></span>
-	            </label>
-	        </div>
+			<div class="input-field">
+			    <label>
+			        <input name="people[${index}].termConsent" type="checkbox" id="acceptTerm${index}" />
+			        <span>Aceito os <a href="#!" class="modal-trigger" data-target="termModal">termos de responsabilidade</a></span>
+			    </label>
+			</div>
 	    `;
 
 		peopleInfoContainer.appendChild(personForm);

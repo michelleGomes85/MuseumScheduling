@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -28,10 +29,9 @@ public class Person {
 	private String name;
 	
     @NotBlank(message = Messages.VALIDATION_CPF_REQUIRED)
-    @Pattern(regexp = Messages.REGEX_EXPRESSION_CPF, message = Messages.VALIDATION_CPF_FORMAT)
 	private String cpf;
     
-    @NotNull(message = Messages.VALIDATION_TERM_CONSENT_REQUIRED)
+    @AssertTrue(message = Messages.VALIDATION_TERM_CONSENT_REQUIRED)
 	private boolean termConsent;
     
     @Enumerated(EnumType.STRING)
