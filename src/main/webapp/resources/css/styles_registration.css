@@ -17,7 +17,7 @@
 
 .content-form {
 	width: 100%;
-	max-width: 450px;
+	max-width: 550px;
 	padding: 50px;
 	background-color: #000;
 	border: 1px solid #fff;
@@ -28,7 +28,7 @@
 
 .content-form h5 {
 	color: #fff;
-	margin-bottom: 25px;
+	margin-bottom: 2.5rem;
 	font-weight: bold;
 }
 
@@ -136,7 +136,7 @@ input::placeholder {
 }
 
 .select {
-	margin-top: 3rem;
+	margin-top: 2rem;
 }
 
 .datepicker-controls .select-month input {
@@ -170,4 +170,36 @@ input::placeholder {
 
 .hide-field {
 	display: none;
+}
+
+#submitButton {
+	display: none; 
+}
+
+.person-form-container {
+    margin-bottom: 20px;
+    padding-top: 2rem;
+    padding-bottom: 5rem; 
+    border-top: 3px solid #ff9800;
+    border-bottom: 3px solid #ff9800; 
+    border-radius: 5px; 
+    color: #fff; 
+}
+
+.person-form-container h6 {
+	margin-bottom: 2rem;
+}
+
+.modal-upgrade {
+	text-align: left;
+	padding: 100px 50px !important;
+}
+
+.modal {
+	max-width: 700px;
+}
+
+.modal h1, .modal h2, .modal h3, .modal h4 {
+	margin-bottom: 2rem;
+	font-weight: bold;
 }

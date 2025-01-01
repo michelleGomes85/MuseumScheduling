@@ -23,18 +23,22 @@
 			<h5>Cadastrar Funcionario</h5>
 
 			<form action="registerAppUser" method="post">
+				
 				<div class="input-field">
 					<i class="material-icons prefix">person</i> <input id="name"
 						type="text" name="name" required> <label for="name">Nome</label>
 				</div>
+				
 				<div class="input-field">
 					<i class="material-icons prefix">fingerprint</i> <input id="cpf"
 						type="text" name="cpf" required> <label for="cpf">CPF</label>
 				</div>
+				
 				<div class="input-field">
 					<i class="material-icons prefix">email</i> <input id="email"
 						type="email" name="email" required> <label for="email">E-mail</label>
 				</div>
+				
 				<div class="input-field">
 					<i class="material-icons prefix">lock</i> <input id="password"
 						type="password" name="password" required> <label

@@ -61,8 +61,6 @@ public class SchedulingController {
 	        @RequestParam("date") String date, 
 	        @RequestParam("time") String time) {
 	    
-		System.out.println(date);
-		System.out.println(time);
 	    LocalDate localDate = LocalDate.parse(date);
 	    LocalTime localTime = LocalTime.parse(time);
 
@@ -76,5 +74,4 @@ public class SchedulingController {
 	        return museum.getLimitPeopleByHour() - reservedPeople;
 	    }
 	}
-
 }

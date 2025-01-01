@@ -28,7 +28,6 @@ public class Scheduling {
 	private int numberPeople;
 	
 	@Min(value = 0, message = Messages.VALIDATION_PEOPLE_PRESENT)
-    private int peoplePresent;
 	
     @NotBlank(message = Messages.VALIDATION_EMAIL_REQUIRED)
     @Email(message = Messages.VALIDATION_EMAIL_INVALID)
@@ -99,14 +98,6 @@ public class Scheduling {
 
 	public void setPeople(List<Person> people) {
 		this.people = people;
-	}
-
-	public int getPeoplePresent() {
-		return peoplePresent;
-	}
-
-	public void setPeoplePresent(int peoplePresent) {
-		this.peoplePresent = peoplePresent;
 	}
 
 	public HourlyReservation getHourlyReservation() {
