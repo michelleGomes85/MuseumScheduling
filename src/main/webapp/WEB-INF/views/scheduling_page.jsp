@@ -87,7 +87,7 @@
 					utilizar os serviços oferecidos, estou ciente das responsabilidades
 					que assumo e comprometo-me a respeitar as condições estabelecidas a
 					seguir:</p>
-				<ul>
+				<ul class="item-term">
 					<li><strong>1.</strong> Cumprir todas as normas, regulamentos
 						e políticas aplicáveis ao serviço, conforme estabelecido pelo
 						prestador do serviço.</li>

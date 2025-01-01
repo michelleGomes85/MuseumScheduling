@@ -203,3 +203,11 @@ input::placeholder {
 	margin-bottom: 2rem;
 	font-weight: bold;
 }
+
+.item-term {
+	margin: 2rem 0;
+}
+
+.item-term li {
+	margin-bottom: 10px;
+}

@@ -4,7 +4,6 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
-	// Monitorar mudanças nos campos 'museum' e 'datePicker'
 	$('#museum, #datePicker').on('change blur', function() {
 
 		const museumId = $('#museum').val();
@@ -75,16 +74,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	let currentPersonIndex = 0;
 	let totalPeople = 0;
+	
+	peopleCountInput.addEventListener('input', function() {
+
+		const newTotalPeople = parseInt(peopleCountInput.value, 10) || 0;
+
+		peopleInfoContainer.innerHTML = '';
+		currentPersonIndex = 0;
+		totalPeople = newTotalPeople;
+
+		continueButton.style.display = 'block';
+		submitButton.style.display = 'none';
+
+		if (newTotalPeople <= 0) {
+			continueButton.style.display = 'none';
+		}
+	});
+	
+	$(document).on('input', 'input[id^="people"][id$=".cpf"]', function() {
+		$(this).mask('000.000.000-00', { reverse: true });
+	});
 
 	function createPersonForm(index) {
-		// Lista de tipos de tickets
 		const tickets = ["INTEIRO", "MEIA_ENTRADA", "ISENTO", "MORADOR", "CONDUTOR"];
 
 		const personForm = document.createElement('div');
 		personForm.classList.add('person-form-container');
-		
+
 		personForm.classList.add('person-form');
-		
+
 		personForm.innerHTML = `
 	        <h6>Pessoa ${index + 1}</h6>
 
@@ -152,9 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 });
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
 	const elems = document.querySelectorAll('.modal');
-    M.Modal.init(elems);
+	M.Modal.init(elems);
 });
-
-
