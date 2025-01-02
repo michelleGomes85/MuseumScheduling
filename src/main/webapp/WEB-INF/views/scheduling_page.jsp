@@ -4,18 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Agendamento de Visitas</title>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-	rel="stylesheet" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="resources/css/styles_homepage.css" />
-<link rel="stylesheet" href="resources/css/styles_registration.css" />
-<link rel="icon" href="resources/images/MS.png" type="image/x-icon">
+	<meta charset="UTF-8">
+	<title>Agendamento de Visitas</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="stylesheet" href="resources/css/styles_homepage.css" />
+	<link rel="stylesheet" href="resources/css/styles_registration.css" />
+	<link rel="icon" href="resources/images/MS.png" type="image/x-icon">
 </head>
 <body>
 

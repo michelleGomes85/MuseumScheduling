@@ -2,6 +2,7 @@ package tsi.daw.museumscheduling.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.validation.Valid;
 import tsi.daw.museumscheduling.dao.DAO;
 import tsi.daw.museumscheduling.dao.HourlyReservationDAO;
-import tsi.daw.museumscheduling.model.HourlyReservation;
 import tsi.daw.museumscheduling.model.Museum;
 import tsi.daw.museumscheduling.model.Person;
 import tsi.daw.museumscheduling.model.Scheduling;
+import tsi.daw.museumscheduling.utils.SchedulingUtils;
+import tsi.daw.museumscheduling.utils.SendEmailUtils;
 
 @Controller
 public class SchedulingController {
@@ -86,17 +88,6 @@ public class SchedulingController {
 		
 		MuseumControl.listMuseums(model);
 		
-		for (Person person : scheduling.getPeople())
-			System.out.println(person.getName());
-		
-		HourlyReservation hourlyReservation = scheduling.getHourlyReservation();
-		
-		System.out.println(hourlyReservation.getDate());
-		System.out.println(hourlyReservation.getTime());
-		System.out.println(hourlyReservation.getReservedPeople());
-		
-		System.out.println("Passei aqui");
-		
 		if (result.hasErrors()) {
 			
 			List<String> errorMessages = new ArrayList<>();
@@ -107,11 +98,48 @@ public class SchedulingController {
 			model.addAttribute("messageReturn", errorMessages);
 			return "scheduling_page";
 		}
+		
+		String uniqueCode = SchedulingUtils.generateUniqueCode(scheduling);
+		scheduling.setConfirmationCode(uniqueCode);
 
 		DAO<Scheduling> dao = new DAO<>(Scheduling.class);
 		dao.add(scheduling);
 
 		model.addAttribute("messageReturn", "Cadastro realizado com sucesso!");
+		
+		sendEmail(scheduling);
+		
 		return "scheduling_page";
+	}
+	
+	private void sendEmail(Scheduling scheduling) {
+
+		DAO<Museum> dao = new DAO<>(Museum.class);
+		Museum museum = dao.findById(scheduling.getMuseum().getId());
+
+		String subject = "Confirmação de Agendamento - " + museum.getName();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = scheduling.getHourlyReservation().getDate().format(formatter);
+
+		StringBuilder content = new StringBuilder();
+		content.append("<html><body>").append("<h2>Olá,</h2>")
+				.append("<p>Seu agendamento foi confirmado! Aqui estão os detalhes:</p>").append("<ul>")
+				.append("<li><strong>Dia e Horário do Agendamento:</strong> ").append(formattedDate).append(" às ")
+				.append(scheduling.getHourlyReservation().getTime()).append("</li>")
+				.append("<li><strong>Quantidade de Pessoas:</strong> ")
+				.append(scheduling.getHourlyReservation().getReservedPeople()).append("</li>")
+				.append("<li><strong>Pessoa(s) Agendada(s):</strong></li><br>")
+				.append("<table border='1' cellpadding='5' cellspacing='0'>")
+				.append("<tr><th>Nome</th><th>CPF</th></tr>");
+
+		for (Person person : scheduling.getPeople()) {
+			content.append("<tr><td>").append(person.getName()).append("</td><td>").append(person.getCpf()).append("</td></tr>");
+		}
+
+		content.append("</table>").append("<br><p><strong>Código de Confirmação:</strong> ")
+				.append(scheduling.getConfirmationCode()).append("</p>").append("</body></html>");
+
+		SendEmailUtils.sendEmail(scheduling.getResponsibleEmail(), subject, content);
 	}
 }

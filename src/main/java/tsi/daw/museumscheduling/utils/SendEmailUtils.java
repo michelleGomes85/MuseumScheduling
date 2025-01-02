@@ -1,0 +1,79 @@
+package tsi.daw.museumscheduling.utils;
+
+import java.util.Properties;
+
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+
+/**
+ * Classe utilitária para enviar e-mails usando o Gmail SMTP.
+ * 
+ * <p>
+ * Este método usa a biblioteca Jakarta Mail para enviar e-mails através do
+ * servidor SMTP do Gmail.
+ * </p>
+ * 
+ * <p>
+ * Exemplo de uso:
+ * </p>
+ * 
+ * <pre>
+ * String to = "destinatario@dominio.com";
+ * String subject = "Assunto do E-mail";
+ * StringBuilder content = new StringBuilder("Conteúdo do e-mail.");
+ * SendEmailUtils.sendEmail(to, subject, content);
+ * </pre>
+ */
+public class SendEmailUtils {
+
+	// Configurações do e-mail
+	private static final String from = "";
+	private static final String username = "";
+	private static final String password = "";
+	private static final String host = "smtp.gmail.com";
+
+	/**
+	 * Envia um e-mail para o endereço especificado com o assunto e conteúdo
+	 * fornecidos.
+	 * 
+	 * @param addressTo O endereço de e-mail do destinatário.
+	 * @param subject   O assunto do e-mail.
+	 * @param content   O conteúdo do e-mail.
+	 */
+	public static void sendEmail(String addressTo, String subject, StringBuilder content) {
+
+		// Definindo as propriedades do servidor SMTP
+		Properties properties = System.getProperties();
+		properties.put("mail.smtp.host", host);
+		properties.put("mail.smtp.port", "587"); // Porta do Gmail para envio com TLS
+		properties.put("mail.smtp.auth", "true"); // Habilitar autenticação SMTP
+		properties.put("mail.smtp.starttls.enable", "true"); // Habilitar STARTTLS
+
+		Session session = Session.getInstance(properties, new jakarta.mail.Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(from)); // E-mail de envio
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(addressTo)); // Destinatário
+			message.setSubject(subject);
+
+			// Enviando o conteúdo com formatação HTML
+			message.setContent(content.toString(), "text/html; charset=UTF-8");
+
+			jakarta.mail.Transport.send(message);
+			System.out.println("E-mail enviado com sucesso!");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
