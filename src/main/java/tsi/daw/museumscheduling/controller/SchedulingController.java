@@ -35,6 +35,11 @@ public class SchedulingController {
 		return "scheduling_page";
 	}
 	
+	@RequestMapping("cancel_page")
+	public String cancelPage() {
+		return "cancel_scheduling";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "getAvailableTimes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<String> getAvailableTimes(@RequestParam("museum") Long museumId, @RequestParam("date") String date) {

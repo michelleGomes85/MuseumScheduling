@@ -1,0 +1,12 @@
+INSERT INTO museum (id, name, openingtime, closingtime, limitpeoplebyhour)
+VALUES (1, 'Museu Municipal de Barbacena', '08:00', '18:00', 5);
+
+INSERT INTO museum (id, name, openingtime, closingtime, limitpeoplebyhour)
+VALUES (2, 'Museu da Loucura', '09:00', '17:00', 10);
+
+INSERT INTO appuser (id, cpf, email, name, password, userprofile, museum_id)
+VALUES (1, '708.273.780-76', 'admin@gmail.com', 'admin', 'admin', 'ADMIN', 1);
+
+
+Email: michelletestegomes@gmail.com
+senha: sxjc gdyo wdos tvad

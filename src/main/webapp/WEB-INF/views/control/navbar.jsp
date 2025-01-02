@@ -16,9 +16,8 @@
 				<!-- Opções visíveis para todos, logado ou não -->
 				<li><a href="<c:url value='/home_page'/>"><i class="material-icons left">home</i>Home</a></li>
 				
-				<li><a href="<c:url value='/scheduling_page'/>"><i	class="material-icons left">event</i>Agendar Visitas</a></li>
-				<li><a href="<c:url value='/cancel_page'/>"><i
-						class="material-icons left">cancel</i>Cancelar Visitas</a></li>
+				<li><a href="<c:url value='/scheduling_page'/>"><i class="material-icons left">event</i>Agendar Visitas</a></li>
+				<li><a href="<c:url value='/cancel_page'/>"><i class="material-icons left">cancel</i>Cancelar Visitas</a></li>
 
 				<!-- As opções abaixo serão visíveis apenas para usuários logados -->
 				<c:if test="${not empty user}">

@@ -30,12 +30,24 @@ import jakarta.mail.internet.MimeMessage;
  */
 public class SendEmailUtils {
 
-	// Configurações do e-mail
+	/* 
+	 * Configurações do e-mail
+	 * 
+	 * Necessário o email que será usado para enviar a mensagem, 
+	 * 		- from 
+	 *      - username
+	 * 
+	 * O password por segurança gmail, não pode ser a senha do email.
+	 * Tem que ser uma senha gerada para aplicativo, nas configuração do gmail;
+	 * 
+	 * - https://myaccount.google.com/
+	 * 
+	 * */
+	
 	private static final String from = "";
 	private static final String username = "";
 	private static final String password = "";
 	private static final String host = "smtp.gmail.com";
-
 	/**
 	 * Envia um e-mail para o endereço especificado com o assunto e conteúdo
 	 * fornecidos.
