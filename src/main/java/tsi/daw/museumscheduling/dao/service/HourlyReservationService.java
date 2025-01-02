@@ -1,17 +1,18 @@
-package tsi.daw.museumscheduling.dao;
+package tsi.daw.museumscheduling.dao.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
+import tsi.daw.museumscheduling.dao.JPAUtil;
 import tsi.daw.museumscheduling.model.HourlyReservation;
 
-public class HourlyReservationDAO implements AutoCloseable  {
-
+public class HourlyReservationService implements AutoCloseable {
+	
 	EntityManager manager;
 
-	public HourlyReservationDAO() {
+	public HourlyReservationService() {
 		manager = new JPAUtil().getEntityManager();
 	}
 
@@ -39,7 +40,8 @@ public class HourlyReservationDAO implements AutoCloseable  {
 
 	
 	public List<HourlyReservation> getReservationsByDateAndMuseum(LocalDate date, Long museumId) {
-	    try {
+	    
+		try {
 	        String jpql = "SELECT hr FROM HourlyReservation hr " +
 	                      "JOIN Scheduling s ON s.hourlyReservation.id = hr.id " +
 	                      "WHERE s.museum.id = :museumId " +
@@ -56,7 +58,7 @@ public class HourlyReservationDAO implements AutoCloseable  {
 	    }
 	}
 
-    @Override
+	@Override
 	public void close() {
 		if (manager.isOpen())
 			manager.close();

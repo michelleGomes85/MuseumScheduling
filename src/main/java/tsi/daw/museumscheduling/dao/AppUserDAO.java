@@ -14,6 +14,7 @@ public class AppUserDAO {
 		manager = new JPAUtil().getEntityManager();
 	}
 
+	@SuppressWarnings("unchecked")
 	public AppUser validateLogin(AppUser user) {
 		
 	    if (user == null)

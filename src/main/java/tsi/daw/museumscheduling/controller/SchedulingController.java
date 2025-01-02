@@ -2,8 +2,9 @@ package tsi.daw.museumscheduling.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.MediaType;
@@ -17,12 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.validation.Valid;
 import tsi.daw.museumscheduling.dao.DAO;
-import tsi.daw.museumscheduling.dao.HourlyReservationDAO;
+import tsi.daw.museumscheduling.dao.service.HourlyReservationService;
+import tsi.daw.museumscheduling.dao.service.SchedulingService;
 import tsi.daw.museumscheduling.model.Museum;
-import tsi.daw.museumscheduling.model.Person;
 import tsi.daw.museumscheduling.model.Scheduling;
+import tsi.daw.museumscheduling.utils.MuseumUtil;
 import tsi.daw.museumscheduling.utils.SchedulingUtils;
-import tsi.daw.museumscheduling.utils.SendEmailUtils;
 
 @Controller
 public class SchedulingController {
@@ -30,7 +31,7 @@ public class SchedulingController {
 	@RequestMapping("scheduling_page")
 	public String schedulingPage(Model model) {
 		
-		MuseumControl.listMuseums(model);
+		MuseumUtil.listMuseums(model);
 		
 		return "scheduling_page";
 	}
@@ -46,7 +47,7 @@ public class SchedulingController {
 	    
 	    LocalDate localDate = LocalDate.parse(date);
 	    
-		try (HourlyReservationDAO dao = new HourlyReservationDAO()) {
+		try (HourlyReservationService dao = new HourlyReservationService()) {
 	        
 	    	DAO<Museum> daoMuseum = new DAO<>(Museum.class);
 	        Museum museum = daoMuseum.findById(museumId);
@@ -69,15 +70,12 @@ public class SchedulingController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getLimitForTime", produces = MediaType.APPLICATION_JSON_VALUE)
-	public int getLimitForTime(
-	        @RequestParam("museum") Long museumId, 
-	        @RequestParam("date") String date, 
-	        @RequestParam("time") String time) {
+	public int getLimitForTime(@RequestParam("museum") Long museumId, @RequestParam("date") String date, @RequestParam("time") String time) {
 	    
 	    LocalDate localDate = LocalDate.parse(date);
 	    LocalTime localTime = LocalTime.parse(time);
 
-	    try (HourlyReservationDAO dao = new HourlyReservationDAO()) {
+	    try (HourlyReservationService dao = new HourlyReservationService()) {
 	    	
 	        int reservedPeople = dao.getReservedPeople(museumId, localDate, localTime);
 
@@ -91,7 +89,7 @@ public class SchedulingController {
 	@RequestMapping("scheduleVisit")
 	public String scheduleVisit(@Valid Scheduling scheduling, BindingResult result, Model model) {
 		
-		MuseumControl.listMuseums(model);
+		MuseumUtil.listMuseums(model);
 		
 		if (result.hasErrors()) {
 			
@@ -112,39 +110,28 @@ public class SchedulingController {
 
 		model.addAttribute("messageReturn", "Cadastro realizado com sucesso!");
 		
-		sendEmail(scheduling);
+		MuseumUtil.sendEmail(scheduling);
 		
 		return "scheduling_page";
 	}
 	
-	private void sendEmail(Scheduling scheduling) {
+	@RequestMapping("listSchedulingByCode")
+	public String getSchedulingByCode(@RequestParam("responsibleEmail") String email, @RequestParam("confirmationCode") String code, Model model) {
+		
+		try (SchedulingService schedulingService = new SchedulingService()) {
+			
+			Scheduling scheduling = schedulingService.findSchedulingByEmailAndCode(email, code);
+			
+			if (scheduling != null) {
+				Date date = Date.from(scheduling.getHourlyReservation().getDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+				model.addAttribute("scheduling", scheduling);
+				model.addAttribute("formattedDate", date);
 
-		DAO<Museum> dao = new DAO<>(Museum.class);
-		Museum museum = dao.findById(scheduling.getMuseum().getId());
-
-		String subject = "Confirmação de Agendamento - " + museum.getName();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formattedDate = scheduling.getHourlyReservation().getDate().format(formatter);
-
-		StringBuilder content = new StringBuilder();
-		content.append("<html><body>").append("<h2>Olá,</h2>")
-				.append("<p>Seu agendamento foi confirmado! Aqui estão os detalhes:</p>").append("<ul>")
-				.append("<li><strong>Dia e Horário do Agendamento:</strong> ").append(formattedDate).append(" às ")
-				.append(scheduling.getHourlyReservation().getTime()).append("</li>")
-				.append("<li><strong>Quantidade de Pessoas:</strong> ")
-				.append(scheduling.getHourlyReservation().getReservedPeople()).append("</li>")
-				.append("<li><strong>Pessoa(s) Agendada(s):</strong></li><br>")
-				.append("<table border='1' cellpadding='5' cellspacing='0'>")
-				.append("<tr><th>Nome</th><th>CPF</th></tr>");
-
-		for (Person person : scheduling.getPeople()) {
-			content.append("<tr><td>").append(person.getName()).append("</td><td>").append(person.getCpf()).append("</td></tr>");
+				return "scheduling_details";
+			} else {
+				model.addAttribute("messageReturn", "Agendamento não encontrado");
+				return "cancel_scheduling";
+			}
 		}
-
-		content.append("</table>").append("<br><p><strong>Código de Confirmação:</strong> ")
-				.append(scheduling.getConfirmationCode()).append("</p>").append("</body></html>");
-
-		SendEmailUtils.sendEmail(scheduling.getResponsibleEmail(), subject, content);
 	}
 }

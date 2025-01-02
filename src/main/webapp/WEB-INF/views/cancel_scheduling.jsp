@@ -19,7 +19,7 @@
 	<div class="content-registration">
 		<div class="content-form">
 			<h5>Cancelar Agendamento</h5>
-			<form action="scheduleVisit" method="post">
+			<form action="listSchedulingByCode" method="post">
 				
 				<div class="input-field">
 					<i class="material-icons prefix">email</i> <input
