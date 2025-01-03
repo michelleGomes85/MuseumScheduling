@@ -15,7 +15,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.validation.Valid;
 import tsi.daw.museumscheduling.dao.DAO;
@@ -113,7 +112,7 @@ public class SchedulingController {
 
 		model.addAttribute("messageReturn", "Cadastro realizado com sucesso!");
 
-		MuseumUtil.sendEmail(scheduling);
+		MuseumUtil.sendEmailVisit(scheduling);
 
 		return "scheduling_page";
 	}
@@ -127,8 +126,7 @@ public class SchedulingController {
 			Scheduling scheduling = schedulingService.findSchedulingByEmailAndCode(email, code);
 
 			if (scheduling != null) {
-				Date date = Date.from(
-						scheduling.getHourlyReservation().getDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+				Date date = Date.from(scheduling.getHourlyReservation().getDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 				model.addAttribute("scheduling", scheduling);
 				model.addAttribute("formattedDate", date);
 
@@ -160,6 +158,8 @@ public class SchedulingController {
 			scheduling.getHourlyReservation().setReservedPeople(Math.max(0, numberReservation - 1));
 			DAO<Scheduling> daoScheduling = new DAO<>(Scheduling.class);
 			daoScheduling.update(scheduling);
+			
+			MuseumUtil.sendEmailUpdateVisit(scheduling);
 
 			DAO<Person> daoPerson = new DAO<>(Person.class);
 			daoPerson.remove(person);
@@ -186,6 +186,8 @@ public class SchedulingController {
 			scheduling.getPeople().remove(person);
 			daoPerson.remove(person);
 		}
+		
+		MuseumUtil.sendEmailCancelVisit(scheduling);
 
 		daoScheduling.remove(scheduling);
 	}
