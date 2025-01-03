@@ -8,7 +8,6 @@ function showModal() {
 
 	if (modal_sucess)
 		modal_sucess.style.display = "flex";
-
 }
 
 function closeModal() {

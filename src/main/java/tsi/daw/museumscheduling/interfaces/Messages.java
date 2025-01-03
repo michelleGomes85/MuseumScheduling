@@ -4,7 +4,7 @@ public interface Messages {
 
     String VALIDATION_NAME_REQUIRED = "O nome é obrigatório.";
     String VALIDATION_CPF_REQUIRED = "O CPF é obrigatório.";
-    String VALIDATION_CPF_FORMAT = "O CPF deve conter exatamente 11 dígitos.";
+    String VALIDATION_CPF_FORMAT = "O CPF deve estar no formato 111.111.111-11";
     String VALIDATION_EMAIL_REQUIRED = "O e-mail é obrigatório.";
     String VALIDATION_EMAIL_INVALID = "E-mail inválido.";
     String VALIDATION_PASSWORD_REQUIRED = "A senha é obrigatória.";
@@ -22,6 +22,5 @@ public interface Messages {
     String VALIDATION_PEOPLE_PRESENT = "O número de pessoas presentes deve ser maior ou igual a zero.";
     String VALIDATION_MUSEUM = "O museu é obrigatório";
     
-    String REGEX_EXPRESSION_CPF = "\\d{11}";
-    
+    String REGEX_EXPRESSION_CPF = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}";
 }

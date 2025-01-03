@@ -75,6 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	let currentPersonIndex = 0;
 	let totalPeople = 0;
 	
+	if (peopleCountInput == null)
+		return;
+	
 	peopleCountInput.addEventListener('input', function() {
 
 		const newTotalPeople = parseInt(peopleCountInput.value, 10) || 0;
@@ -120,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	        <div class="input-field select">
 	            <i class="material-icons prefix">drafts</i> 
-	            <select name="people[${index}].ticketType" required>
+	            <select name="people[${index}].ticketType">
 	                <option value="" disabled selected>Selecione o tipo de ticket</option>
 	                <!-- As opções de tickets serão geradas aqui -->
 	            </select> 
@@ -148,15 +151,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		M.FormSelect.init(ticketSelect);
 	}
+	
+	submitButton.addEventListener('click', function(event) {
+		const errors = checkErros();
 
-	continueButton.addEventListener('click', function() {
+		if (errors.length > 0) {
+			event.preventDefault();
+			createErrorModal(errors);
+			return;
+		} 
+	});
 
-		if (currentPersonIndex === 0) {
+	continueButton.addEventListener('click', function(event) {
+		
+		const errors = checkErros();
+				
+		if (errors.length > 0) {
+			event.preventDefault(); 
+            createErrorModal(errors);
+			return;
+		} 
+
+		if (currentPersonIndex === 0)
 			totalPeople = parseInt(peopleCountInput.value, 10) || 0;
-			if (totalPeople <= 0) {
-				return;
-			}
-		}
 
 		if (currentPersonIndex < totalPeople) {
 			createPersonForm(currentPersonIndex);
@@ -169,6 +186,83 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 });
+
+function checkErros() {
+	
+	const errors = [];
+
+	const email = document.querySelector('input[name="responsibleEmail"]');
+	const museum = document.querySelector('select[name="museum"]');
+	const datePicker = document.querySelector('input[name="hourlyReservation.date"]');
+	const timePicker = document.querySelector('select[name="hourlyReservation.time"]');
+	const peopleCount = document.querySelector('input[name="hourlyReservation.reservedPeople"]');
+
+	if (!email || !email.value.trim()) errors.push('O campo "E-mail" é obrigatório.');
+	if (!museum || !museum.value) errors.push('Selecione um museu.');
+	if (!datePicker || !datePicker.value.trim()) errors.push('O campo "Data" é obrigatório.');
+	if (!timePicker || !timePicker.value) errors.push('Selecione um horário.');
+	if (!peopleCount || !peopleCount.value.trim() || parseInt(peopleCount.value, 10) <= 0)
+		errors.push('Informe a quantidade de pessoas (deve ser maior que zero).');
+
+	// Seleção dos formulários de pessoas
+	const allSelectorsPeople = document.querySelectorAll('.person-form-container');
+
+	if (allSelectorsPeople.length === 0) {
+		return errors;
+	} else {
+		allSelectorsPeople.forEach((form, index) => {
+			const name = form.querySelector(`input[name="people[${index}].name"]`);
+			const cpf = form.querySelector(`input[name="people[${index}].cpf"]`);
+			const ticketType = form.querySelector(`select[name="people[${index}].ticketType"]`);
+			const acceptTerm = form.querySelector(`#acceptTerm${index}`);
+
+			if (!name || !name.value.trim()) errors.push(`Pessoa ${index + 1}: Nome é obrigatório.`);
+			if (!cpf || !cpf.value.trim()) errors.push(`Pessoa ${index + 1}: CPF é obrigatório.`);
+			if (!ticketType || !ticketType.value) errors.push(`Pessoa ${index + 1}: Tipo de Ticket é obrigatório.`);
+			if (!acceptTerm || !acceptTerm.checked) errors.push(`Pessoa ${index + 1}: Você deve aceitar os termos.`);
+			
+			const validMessage = validateCPF(cpf.value.trim());
+			if (validMessage != "CPF valido") errors.push(validMessage);
+		});
+	}
+
+	return errors;
+}
+
+function validateCPF(cpf) {
+
+    const regex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+    
+    if (!regex.test(cpf))
+        return 'O CPF deve estar no formato 111.111.111-11';
+
+    return 'CPF valido';
+}
+
+function createErrorModal(errors) {
+	
+    let existingModal = document.getElementById('modalMessage-error');
+	
+    if (existingModal) {
+        existingModal.remove(); 
+    }
+
+    const modalHTML = `
+        <div id="modalMessage-error" class="modalMessage">
+            <div class="modal-content">
+                <h2>Erro</h2>
+                <ul class="ul-model">
+                    ${errors.map(error => `<li>${error}</li>`).join('')}
+                </ul>
+				<button onclick="closeModal()" class="btn-submit">Fechar</button>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+	showModal();
+}
 
 document.addEventListener('DOMContentLoaded', function() {
 	const elems = document.querySelectorAll('.modal');

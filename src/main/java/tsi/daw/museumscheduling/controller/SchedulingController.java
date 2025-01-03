@@ -92,18 +92,18 @@ public class SchedulingController {
 	public String scheduleVisit(@Valid Scheduling scheduling, BindingResult result, Model model) {
 
 		MuseumUtil.listMuseums(model);
-
+		
 		if (result.hasErrors()) {
-
+			
 			List<String> errorMessages = new ArrayList<>();
-
+			
 			for (ObjectError error : result.getAllErrors())
 				errorMessages.add(error.getDefaultMessage());
-
+			
 			model.addAttribute("messageReturn", errorMessages);
-			return "scheduling_page";
+			return "employee_registration";
 		}
-
+		
 		String uniqueCode = SchedulingUtils.generateUniqueCode(scheduling);
 		scheduling.setConfirmationCode(uniqueCode);
 
@@ -111,7 +111,6 @@ public class SchedulingController {
 		dao.add(scheduling);
 
 		model.addAttribute("messageReturn", "Cadastro realizado com sucesso!");
-
 		MuseumUtil.sendEmailVisit(scheduling);
 
 		return "scheduling_page";
@@ -126,7 +125,8 @@ public class SchedulingController {
 			Scheduling scheduling = schedulingService.findSchedulingByEmailAndCode(email, code);
 
 			if (scheduling != null) {
-				Date date = Date.from(scheduling.getHourlyReservation().getDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+				Date date = Date.from(
+						scheduling.getHourlyReservation().getDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 				model.addAttribute("scheduling", scheduling);
 				model.addAttribute("formattedDate", date);
 
@@ -140,25 +140,26 @@ public class SchedulingController {
 
 	@ResponseBody
 	@RequestMapping("cancelPerson")
-	public void cancelPerson(@RequestParam("schedulingId") Long schedulingId, @RequestParam("personId") Long personId, Model model) {
+	public void cancelPerson(@RequestParam("schedulingId") Long schedulingId, @RequestParam("personId") Long personId,
+			Model model) {
 
 		Scheduling scheduling = new DAO<>(Scheduling.class).findById(schedulingId);
 		Person person = new DAO<>(Person.class).findById(personId);
 
 		if (scheduling != null && person != null) {
-			
+
 			int numberReservation = scheduling.getHourlyReservation().getReservedPeople();
-			
+
 			if (numberReservation == 1) {
 				removeAll(schedulingId, model);
 				return;
 			}
-			
+
 			scheduling.getPeople().removeIf(p -> p.getId().equals(personId));
 			scheduling.getHourlyReservation().setReservedPeople(Math.max(0, numberReservation - 1));
 			DAO<Scheduling> daoScheduling = new DAO<>(Scheduling.class);
 			daoScheduling.update(scheduling);
-			
+
 			MuseumUtil.sendEmailUpdateVisit(scheduling);
 
 			DAO<Person> daoPerson = new DAO<>(Person.class);
@@ -186,7 +187,7 @@ public class SchedulingController {
 			scheduling.getPeople().remove(person);
 			daoPerson.remove(person);
 		}
-		
+
 		MuseumUtil.sendEmailCancelVisit(scheduling);
 
 		daoScheduling.remove(scheduling);
