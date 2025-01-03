@@ -9,6 +9,7 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 	<link rel="stylesheet" href="resources/css/styles_homepage.css" />
+	<link rel="stylesheet" href="resources/css/styles_report.css" />
 	<link rel="icon" href="resources/images/MS.png" type="image/x-icon">
 </head>
 <body>
@@ -75,22 +76,9 @@
 			</p>
 		</div>
 	</footer>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="resources/script/script_report.js"></script>
 
-	<!-- Modal Structure -->
-	<div id="relatorios" class="modal">
-		<div class="modal-content">
-			<h4>Relatórios</h4>
-			<ul>
-				<li><a href="#">Relatório de agendamentos com data e hora</a></li>
-				<li><a href="#">Relatório de lista de pessoas por dia</a></li>
-				<li><a href="#">Relatório de dias previstos de visita</a></li>
-			</ul>
-		</div>
-		<div class="modal-footer">
-			<a href="#!" class="modal-close btn">Fechar</a>
-		</div>
-	</div>
-
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

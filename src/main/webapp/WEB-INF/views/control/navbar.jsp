@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="resources/css/styles_report.css" />
 </head>
 <body>
 	<!-- navbar.jsp -->
@@ -14,14 +15,17 @@
 			<ul id="nav-mobile" class="center">
 
 				<!-- Opções visíveis para todos, logado ou não -->
-				<li><a href="<c:url value='/home_page'/>"><i class="material-icons left">home</i>Home</a></li>
-				
-				<li><a href="<c:url value='/scheduling_page'/>"><i class="material-icons left">event</i>Agendar Visitas</a></li>
-				<li><a href="<c:url value='/cancel_page'/>"><i class="material-icons left">cancel</i>Cancelar Visitas</a></li>
+				<li><a href="<c:url value='/home_page'/>"><i
+						class="material-icons left">home</i>Home</a></li>
+
+				<li><a href="<c:url value='/scheduling_page'/>"><i
+						class="material-icons left">event</i>Agendar Visitas</a></li>
+				<li><a href="<c:url value='/cancel_page'/>"><i
+						class="material-icons left">cancel</i>Cancelar Visitas</a></li>
 
 				<!-- As opções abaixo serão visíveis apenas para usuários logados -->
 				<c:if test="${not empty user}">
-					<li><a href="#relatorios"><i class="material-icons left">assessment</i>Relatórios</a></li>
+				<li><a href="#management_schedules" class="modal-trigger"><i class="material-icons left">assessment</i>Gestão de Agendamentos</a></li>
 				</c:if>
 
 				<c:if test="${not empty user and user.userProfile == 'ADMIN'}">
@@ -46,12 +50,31 @@
 		</div>
 	</nav>
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			const elems = document.querySelectorAll(".modal");
-			M.Modal.init(elems);
-		});
-	</script>
+	<!-- Modal Structure -->
+	<div id="management_schedules" class="modal">
+		<div class="modal-content">
+			<h4>Gestão de Agendamentos</h4>
+			<div class="row">
+				<a href="#" class="waves-effect waves-light btn btn-report">Gerar Relatório
+					de Pessoas Agendadas</a>
+			</div>
+			<div class="row">
+				<a href="#" class="waves-effect waves-light btn btn-report">Marcar
+					Comparecimento</a>
+			</div>
+			<div class="row">
+				<a href="#" class="waves-effect waves-light btn btn-report">Gerar Relatório
+					de Agendamentos</a>
+			</div>
+		</div>
 
+		<div class="modal-footer">
+			<a href="#!" class="modal-close btn">Fechar</a>
+		</div>
+	</div>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="resources/script/script_report.js"></script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.btn-report {
+    height: 50px;
+    line-height: 50px;
+    background-color: transparent;
+    color: #243f4a; 
+    border: 2px solid #243f4a; 
+}
+
+.btn-report:hover {
+  color: #FFF;
+}
+
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large,
+    .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+    -webkit-box-shadow: none !important; 
+    box-shadow: none !important; 
+}
+
+.row {
+	margin-bottom: 10px;
+}
+
+.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat { 
+	background-color: #243f4a;
+}
+
+.modal {
+	margin-top: 5%;
+}
+
