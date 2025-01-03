@@ -2,6 +2,7 @@ package tsi.daw.museumscheduling.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -37,7 +38,7 @@ public class Person {
     @NotNull(message = Messages.VALIDATION_TICKET_TYPE_REQUIRED)
 	private TicketType ticketType;
 	
-    @ManyToMany(mappedBy = "people")
+    @ManyToMany(mappedBy = "people", cascade = CascadeType.ALL)
     private List<Scheduling> schedulings;
     
 	public Long getId() {

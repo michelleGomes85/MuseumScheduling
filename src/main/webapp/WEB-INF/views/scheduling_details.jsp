@@ -46,24 +46,31 @@
 							<td>${person.name}</td>
 							<td>${person.cpf}</td>
 							<td>${person.ticketType}</td>
-							<td><a
-								href="cancelPerson?schedulingId=${scheduling.id}&personId=${person.id}"
-								class="cancel-icon" title="Cancelar"> 
-								<i class="material-icons">cancel</i>
-							</a></td>
+							<td>
+								<a href="javascript:void(0);" class="cancel-icon"
+									title="Cancelar" data-scheduling-id="${scheduling.id}"
+									data-person-id="${person.id}"> <i class="material-icons">cancel</i>
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
-			
-						<!-- Botão para cancelar todas as pessoas -->
+
 			<div class="cancel-all-button">
-				<a href="" class="btn orange" title="Cancelar Todos">Cancelar Todos</a>
+				<a href="javascript:void(0);" class="btn orange" id="cancel-all"
+					data-scheduling-id="${scheduling.id}" title="Cancelar Todos"> Cancelar Todos </a>
 			</div>
 		</div>
 	</div>
-</body>
-</html>
-
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="resources/script/script.js"></script>
+	<script src="resources/script/script_messages.js"></script>
+	<script src="resources/script/script_jquery.js"></script>
+	<script src="resources/script/script_cancel_jquery.js"></script>
 </body>
 </html>

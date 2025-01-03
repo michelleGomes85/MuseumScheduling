@@ -34,9 +34,6 @@ public class Museum {
 	
 	@Min(value = 1, message = Messages.VALIDATION_LIMIT_PEOPLE)
 	private int limitPeopleByHour;
-	
-	@OneToMany(mappedBy = "museum", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Scheduling> schedulings;
     
     @OneToMany(mappedBy = "museum", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AppUser> users;
@@ -78,14 +75,6 @@ public class Museum {
 
 	public void setLimitPeopleByHour(int limitPeopleByHour) {
 		this.limitPeopleByHour = limitPeopleByHour;
-	}
-
-	public List<Scheduling> getSchedulings() {
-		return schedulings;
-	}
-
-	public void setSchedulings(List<Scheduling> schedulings) {
-		this.schedulings = schedulings;
 	}
 
 	public List<AppUser> getUsers() {

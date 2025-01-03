@@ -43,7 +43,6 @@ public class Scheduling {
         joinColumns = @JoinColumn(name = "scheduling_id"),
         inverseJoinColumns = @JoinColumn(name = "person_id")
     )
-    
     private List<Person> people;
     
 	private String confirmationCode;

@@ -41,6 +41,10 @@ public class SendEmailUtils {
 	 * Tem que ser uma senha gerada para aplicativo, nas configuração do gmail;
 	 * 
 	 * - https://myaccount.google.com/
+	 * - Pesquisa: Senhas de App
+	 * - Dê um nome para o app e gere a senha
+	 * 
+	 * OBS.: Verificação de duas etapas tem que estar ativa
 	 * 
 	 * */
 	
