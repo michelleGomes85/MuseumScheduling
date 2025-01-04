@@ -3,7 +3,6 @@ package tsi.daw.museumscheduling.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

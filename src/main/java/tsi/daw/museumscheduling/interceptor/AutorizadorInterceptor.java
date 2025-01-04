@@ -12,7 +12,7 @@ public class AutorizadorInterceptor implements HandlerInterceptor {
 
 		String uri = request.getRequestURI();
 		
-		if (uri.endsWith(PagesName.EMPLOYEE_REGISTRATION_PAGE) || uri.contains("report")) {
+		if (uri.endsWith(PagesName.EMPLOYEE_REGISTRATION_PAGE) || uri.contains(PagesName.REPOSITORY_PAGES_REPORT)) {
 			
 			Object userLogin = request.getSession().getAttribute("user");
 			

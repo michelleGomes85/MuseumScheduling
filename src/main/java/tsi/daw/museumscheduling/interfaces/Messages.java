@@ -23,4 +23,7 @@ public interface Messages {
     String VALIDATION_MUSEUM = "O museu é obrigatório";
     
     String REGEX_EXPRESSION_CPF = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}";
+    
+    
+    String MESSAGE_RETURN_REPORT = "Nenhum agendamento encontrado para %s";
 }

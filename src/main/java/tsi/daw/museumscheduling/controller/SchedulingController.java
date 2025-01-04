@@ -121,7 +121,7 @@ public class SchedulingController {
 			@RequestParam("confirmationCode") String code, Model model) {
 
 		try (SchedulingService schedulingService = new SchedulingService()) {
-
+			
 			Scheduling scheduling = schedulingService.findSchedulingByEmailAndCode(email, code);
 
 			if (scheduling != null) {

@@ -9,8 +9,7 @@ public class JPAUtil {
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("museumscheduling-pu");
 
 	public EntityManager getEntityManager() {
-		EntityManager conexao = emf.createEntityManager();
-		System.out.println(conexao.toString());
-		return conexao;
+		EntityManager conection = emf.createEntityManager();
+		return conection;
 	}
 }

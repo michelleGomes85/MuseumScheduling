@@ -11,4 +11,6 @@ public interface PagesName {
 	
 	String LOGIN_FORM = "loginForm";
     String DEFAULT_REDIRECT = HOME_PAGE;
+    
+    String REPOSITORY_PAGES_REPORT = "reports";
 }

@@ -30,7 +30,6 @@ public class SchedulingService implements AutoCloseable {
 	                .getSingleResult();
 	        
 	    } catch (Exception e) {
-	        e.printStackTrace();
 	        return null;
 	    }
 	}

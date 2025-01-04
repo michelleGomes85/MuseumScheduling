@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import tsi.daw.museumscheduling.dao.DAO;
 import tsi.daw.museumscheduling.dao.service.SchedulingService;
 import tsi.daw.museumscheduling.enums.UserProfile;
+import tsi.daw.museumscheduling.interfaces.Messages;
 import tsi.daw.museumscheduling.model.AppUser;
 import tsi.daw.museumscheduling.model.Museum;
 import tsi.daw.museumscheduling.model.Scheduling;
@@ -102,7 +103,7 @@ public class ReportSchedulingControl {
 			List<Scheduling> schedulings = schedulingService.findSchedulingByDay(date, isAdmin, user.getMuseum().getId());
 			
 			if (schedulings.isEmpty()) {
-				model.addAttribute("messageReturn", String.format("Nenhum agendamento encontrado para %s", dateStr));
+				model.addAttribute("messageReturn", String.format(Messages.MESSAGE_RETURN_REPORT, dateStr));
 				
 				return "reports/report_day";
 			}

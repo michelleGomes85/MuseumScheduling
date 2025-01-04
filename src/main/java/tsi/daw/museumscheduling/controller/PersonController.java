@@ -14,7 +14,9 @@ public class PersonController {
 
 	@ResponseBody
 	@RequestMapping("updatePresence")
-	public void updatePresence(@RequestParam("personId") Long personId, @RequestParam("schedulingId") Long schedulingId,
+	public void updatePresence(
+			@RequestParam("personId") Long personId, 
+			@RequestParam("schedulingId") Long schedulingId,
 			@RequestParam("isPresent") boolean isPresent) {
 
 		DAO<Person> daoPerson = new DAO<>(Person.class);
@@ -26,14 +28,11 @@ public class PersonController {
 		person.setPresent(isPresent);
 
 		if (isPresent)
-			scheduling.getHourlyReservation()
-					.setPeoplePresent(scheduling.getHourlyReservation().getPeoplePresent() + 1);
+			scheduling.getHourlyReservation().setPeoplePresent(scheduling.getHourlyReservation().getPeoplePresent() + 1);
 		else
-			scheduling.getHourlyReservation()
-					.setPeoplePresent(scheduling.getHourlyReservation().getPeoplePresent() - 1);
+			scheduling.getHourlyReservation().setPeoplePresent(scheduling.getHourlyReservation().getPeoplePresent() - 1);
 
 		daoPerson.update(person);
 		daoScheduling.update(scheduling);
 	}
-
 }

@@ -2,6 +2,9 @@ $(document).ready(function() {
 	$('#cpf').mask('000.000.000-00', { reverse: true });
 });
 
+var elems = document.querySelectorAll('.modal');
+M.Modal.init(elems);
+
 $(document).ready(function() {
 
 	$('#museum, #datePicker').on('change blur', function() {
