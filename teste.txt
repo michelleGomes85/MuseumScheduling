@@ -5,4 +5,4 @@ INSERT INTO museum (id, name, openingtime, closingtime, limitpeoplebyhour)
 VALUES (2, 'Museu da Loucura', '09:00', '17:00', 10);
 
 INSERT INTO appuser (id, cpf, email, name, password, userprofile, museum_id)
-VALUES (1, '708.273.780-76', 'admin@gmail.com', 'admin', 'admin', 'ADMIN', 1);
+VALUES (1, '111.111.111-11', 'admin@gmail.com', 'admin', 'admin', 'ADMIN', 1);

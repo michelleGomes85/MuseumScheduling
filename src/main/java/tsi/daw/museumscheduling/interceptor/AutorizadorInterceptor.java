@@ -11,11 +11,11 @@ public class AutorizadorInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
 		String uri = request.getRequestURI();
-
-		if (uri.endsWith(PagesName.EMPLOYEE_REGISTRATION_PAGE)) {
+		
+		if (uri.endsWith(PagesName.EMPLOYEE_REGISTRATION_PAGE) || uri.contains("report")) {
 			
 			Object userLogin = request.getSession().getAttribute("user");
-
+			
 			if (userLogin == null) {
 				response.sendRedirect(PagesName.LOGIN_PAGE);
 				return false;

@@ -20,8 +20,8 @@ public class AppUserDAO {
 	    if (user == null)
 	        throw new IllegalArgumentException("Usuário não deve ser nulo");
 
-	    Query query = manager.createQuery("SELECT u FROM AppUser u WHERE u.name = :name AND u.password = :password", AppUser.class);
-	    query.setParameter("name", user.getName());
+	    Query query = manager.createQuery("SELECT u FROM AppUser u WHERE u.cpf = :cpf AND u.password = :password", AppUser.class);
+	    query.setParameter("cpf", user.getCpf());
 	    query.setParameter("password", user.getPassword());
 
 	    List<AppUser> users = query.getResultList();

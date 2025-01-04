@@ -60,6 +60,30 @@ public class SchedulingService implements AutoCloseable {
 	    }
 	}
 	
+	public List<Scheduling> findSchedulingByDay(LocalDate date, boolean isAdmin, Long museumId) {
+		
+	    try {
+	        String query = "SELECT s FROM Scheduling s " +
+	                       "JOIN FETCH s.museum m " +
+	                       "JOIN FETCH s.hourlyReservation hr " +
+	                       "LEFT JOIN FETCH s.people p " +
+	                       "WHERE hr.date = :date";
+
+	        if (!isAdmin)
+	            query += " AND m.id = :museumId";
+
+	        var typedQuery = manager.createQuery(query, Scheduling.class)
+	                                .setParameter("date", date);
+
+	        if (!isAdmin)
+	            typedQuery.setParameter("museumId", museumId);
+
+	        return typedQuery.getResultList();
+	    } catch (Exception e) {
+	        return null;
+	    }
+	}
+	
 	@Override
 	public void close() {
 		if (manager.isOpen())

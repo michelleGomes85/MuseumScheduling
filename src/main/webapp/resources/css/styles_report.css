@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
 .btn-report {
-    height: 50px;
-    line-height: 50px;
-    background-color: transparent;
-    color: #243f4a; 
-    border: 2px solid #243f4a; 
-    width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: transparent;
+	color: #243f4a;
+	border: 2px solid #243f4a;
+	width: 100%;
 }
 
 .btn {
@@ -20,21 +20,22 @@
 }
 
 .btn-report:hover {
-  color: #FFF;
-  background-color: #243f4a;
+	color: #FFF;
+	background-color: #243f4a;
 }
 
 .z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large,
-    .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
-    -webkit-box-shadow: none !important; 
-    box-shadow: none !important; 
+	.btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 .row {
 	margin-bottom: 10px;
 }
 
-.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat { 
+.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small,
+	.modal .modal-footer .btn-flat {
 	background-color: #243f4a;
 }
 
@@ -42,4 +43,32 @@
 	margin-top: 5%;
 	max-width: 700px;
 	text-align: center;
+}
+
+.content-scheduling {
+	flex-direction: column;
+}
+
+.scheduling-details, .form-table {
+	margin-bottom: 20px;
+}
+
+table.striped th, table.striped td {
+	padding: 10px 15px; 
+	text-align: left;
+}
+
+h6 {
+	color: #FFF;
+	margin: 2rem 0;
+}
+
+h5.title_scheduling {
+	margin: 4rem 0 2rem;
+}
+
+h4 {
+	color: #FFF;
+	font-weight: bold;
+	font-size: 1.5rem;
 }

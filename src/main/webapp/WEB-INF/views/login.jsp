@@ -26,7 +26,7 @@
             
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Usuário" name="name" required>
+                    <input id="cpf" type="text" placeholder="CPF" name="cpf" required>
                 </div>
                 
                 <div class="input-group">

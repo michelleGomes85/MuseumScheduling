@@ -23,7 +23,7 @@
 			
 			<h5>Relatório agendamento dia e hora</h5>
 			
-			<form action="reportDayTime" method="post">
+			<form action="reportDay" method="post">
 				
 				<!-- Escolher data -->
 				<div class="input-field">
@@ -31,15 +31,6 @@
 					<input type="text" id="datePicker" class="datepicker" placeholder="Escolha uma data" name="date">
 				</div>
 
-				<!-- Escolher horário -->
-				<div class="input-field select">
-					<i class="material-icons prefix">schedule</i> 
-					<select	id="timePicker" name="time" required>
-			            <option value="" disabled selected>Selecione um horário</option>
-					</select> 
-					<label for="timePicker">Horário</label>
-				</div>
-				
 				<button id="searchButton" type="submit" class="btn">Buscar</button>
 			</form>
 		</div>
@@ -65,6 +56,5 @@
 	<script src="resources/script/script_messages.js"></script>
 	<script src="resources/script/script_registration_jquery.js"></script>
 	<script src="resources/script/script_report.js"></script>
-	
 </body>
 </html>

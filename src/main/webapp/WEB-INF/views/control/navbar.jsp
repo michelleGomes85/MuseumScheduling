@@ -59,7 +59,7 @@
 					de Pessoas Agendadas e marcar comparecimento</a>
 			</div>
 			<div class="row">
-				<a href="#" class="waves-effect waves-light btn btn-report">Gerar Relatório
+				<a href="<c:url value='/report_day'/>" class="waves-effect waves-light btn btn-report">Gerar Relatório
 					de Agendamentos</a>
 			</div>
 		</div>

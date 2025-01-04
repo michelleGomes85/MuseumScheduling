@@ -1,5 +1,6 @@
 package tsi.daw.museumscheduling.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,7 +22,7 @@ import tsi.daw.museumscheduling.interfaces.Messages;
 public class AppUser {
 	
 	@Id
-	@SequenceGenerator(name = "user_id", sequenceName = "user_seq", allocationSize = 1)
+	@SequenceGenerator(name = "user_id", sequenceName = "user_seq", allocationSize = 1, initialValue = 2)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id")
 	private Long id;
 	
@@ -30,6 +31,7 @@ public class AppUser {
 	
     @NotBlank(message = Messages.VALIDATION_CPF_REQUIRED)
     @Pattern(regexp = Messages.REGEX_EXPRESSION_CPF, message = Messages.VALIDATION_CPF_FORMAT)
+    @Column(unique = true)
 	private String cpf;
     
     @NotBlank(message = Messages.VALIDATION_EMAIL_REQUIRED)

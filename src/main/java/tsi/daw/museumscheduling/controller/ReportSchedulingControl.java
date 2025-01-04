@@ -32,6 +32,11 @@ public class ReportSchedulingControl {
 		return "reports/report_day_time";
 	}
 	
+	@RequestMapping("report_day")
+	public String reportDay() {
+		return "reports/report_day";
+	}
+	
 	@RequestMapping("report_details")
 	public String reportDayTimeDetails(Model model) {
 		return "reports/report_details";
@@ -70,10 +75,43 @@ public class ReportSchedulingControl {
 			
 			List<Scheduling> schedulings = schedulingService.findSchedulingByDayAndTime(date, time, isAdmin, user.getMuseum().getId());
 			
+			if (schedulings.isEmpty()) {
+				model.addAttribute("messageReturn", String.format("Nenhum agendamento encontrado para %s às %s", dateStr, timeStr));
+				
+				return "reports/report_day_time";
+			}
+				
 			model.addAttribute("schedulings", schedulings);
 			model.addAttribute("formattedDate", dateStr);
 			
 			return "reports/report_details";
+		}
+	}
+	
+	@RequestMapping("reportDay")
+	public String reportDay(@RequestParam("date") String dateStr, HttpSession session, Model model) {
+		
+		try (SchedulingService schedulingService = new SchedulingService()) {
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate date = LocalDate.parse(dateStr, formatter);
+			
+			AppUser user = (AppUser) session.getAttribute("user");
+			boolean isAdmin = user.getUserProfile() == UserProfile.ADMIN;
+			
+			List<Scheduling> schedulings = schedulingService.findSchedulingByDay(date, isAdmin, user.getMuseum().getId());
+			
+			if (schedulings.isEmpty()) {
+				model.addAttribute("messageReturn", String.format("Nenhum agendamento encontrado para %s", dateStr));
+				
+				return "reports/report_day";
+			}
+				
+			model.addAttribute("schedulings", schedulings);
+			model.addAttribute("formattedDate", dateStr);
+			model.addAttribute("numberScheduling", schedulings.size());
+			
+			return "reports/report_day_scheduling";
 		}
 	}
 }
