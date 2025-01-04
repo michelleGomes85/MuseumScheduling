@@ -55,12 +55,8 @@
 		<div class="modal-content">
 			<h4>Gestão de Agendamentos</h4>
 			<div class="row">
-				<a href="#" class="waves-effect waves-light btn btn-report">Gerar Relatório
-					de Pessoas Agendadas</a>
-			</div>
-			<div class="row">
-				<a href="#" class="waves-effect waves-light btn btn-report">Marcar
-					Comparecimento</a>
+				<a href="<c:url value='/report_day_time'/>" class="waves-effect waves-light btn btn-report">Gerar Relatório
+					de Pessoas Agendadas e marcar comparecimento</a>
 			</div>
 			<div class="row">
 				<a href="#" class="waves-effect waves-light btn btn-report">Gerar Relatório

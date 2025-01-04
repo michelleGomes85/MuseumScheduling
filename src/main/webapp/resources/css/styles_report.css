@@ -6,10 +6,22 @@
     background-color: transparent;
     color: #243f4a; 
     border: 2px solid #243f4a; 
+    width: 100%;
+}
+
+.btn {
+	margin-top: 15px;
+	width: 100%;
+}
+
+.modal h1, .modal h2, .modal h3, .modal h4 {
+	margin-bottom: 2rem;
+	font-weight: bold;
 }
 
 .btn-report:hover {
   color: #FFF;
+  background-color: #243f4a;
 }
 
 .z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large,
@@ -28,5 +40,6 @@
 
 .modal {
 	margin-top: 5%;
+	max-width: 700px;
+	text-align: center;
 }
-

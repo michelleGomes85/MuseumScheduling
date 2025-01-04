@@ -1,11 +1,15 @@
 package tsi.daw.museumscheduling.utils;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.ui.Model;
 
 import tsi.daw.museumscheduling.dao.DAO;
+import tsi.daw.museumscheduling.dao.service.HourlyReservationService;
 import tsi.daw.museumscheduling.model.Museum;
 import tsi.daw.museumscheduling.model.Person;
 import tsi.daw.museumscheduling.model.Scheduling;
@@ -105,5 +109,43 @@ public class MuseumUtil {
 	    String subject = "Cancelamento Visita - " + museum.getName();
 	    StringBuilder content = generateEmailContent(scheduling, "CANCEL");
 	    SendEmailUtils.sendEmail(scheduling.getResponsibleEmail(), subject, content);
+	}
+	
+	public static List<String> getAvaliableTimes(Long museumId, LocalDate localDate) {
+		
+		try (HourlyReservationService dao = new HourlyReservationService()) {
+
+			DAO<Museum> daoMuseum = new DAO<>(Museum.class);
+			Museum museum = daoMuseum.findById(museumId);
+
+			LocalTime openingTime = museum.getOpeningTime();
+			LocalTime closingTime = museum.getClosingTime();
+
+			List<String> availableTimes = new ArrayList<>();
+
+			for (LocalTime time = openingTime; time.isBefore(closingTime); time = time.plusHours(1)) {
+				int reservedPeople = dao.getReservedPeople(museumId, localDate, time);
+				if (reservedPeople < museum.getLimitPeopleByHour())
+					availableTimes.add(time.toString());
+			}
+			
+			return availableTimes;
+		}
+	}
+	
+	public static List<String> getTimes(Long museumId) {
+		
+		DAO<Museum> daoMuseum = new DAO<>(Museum.class);
+		Museum museum = daoMuseum.findById(museumId);
+
+		LocalTime openingTime = museum.getOpeningTime();
+		LocalTime closingTime = museum.getClosingTime();
+
+		List<String> availableTimes = new ArrayList<>();
+
+		for (LocalTime time = openingTime; time.isBefore(closingTime); time = time.plusHours(1))
+			availableTimes.add(time.toString());
+
+	    return availableTimes;
 	}
 }

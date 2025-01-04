@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .content-form {
-	max-width: 700px;
+	max-width: 1000px;
 }
 .content-form.table table {
     width: 100%; 

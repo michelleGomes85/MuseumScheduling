@@ -43,6 +43,8 @@ public class Person {
     @ManyToMany(mappedBy = "people", cascade = CascadeType.ALL)
     private List<Scheduling> schedulings;
     
+    private boolean present;
+    
 	public Long getId() {
 		return id;
 	}
@@ -89,5 +91,13 @@ public class Person {
 
 	public void setSchedulings(List<Scheduling> schedulings) {
 		this.schedulings = schedulings;
+	}
+
+	public boolean isPresent() {
+		return present;
+	}
+
+	public void setPresent(boolean present) {
+		this.present = present;
 	}
 }
